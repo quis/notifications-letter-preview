@@ -7,7 +7,7 @@ now = datetime.utcnow()
 html_file = os.path.abspath('./letter.html')
 pdf_path = os.path.abspath('./output/example-{}.pdf'.format(now))
 
-exit_code = subprocess.call([
+subprocess.call([
     'wkhtmltopdf',
     '--print-media-type',
     '-T',
@@ -22,7 +22,7 @@ exit_code = subprocess.call([
     pdf_path,
 ])
 
-exit_code = subprocess.call([
+subprocess.call([
     'pdftoppm',
     '-singlefile',
     '-png',
@@ -30,11 +30,8 @@ exit_code = subprocess.call([
     'example-{}'.format(now),
 ])
 
-exit_code = subprocess.call([
+subprocess.call([
     'mv',
     'example-{}.png'.format(now),
     'output/',
 ])
-
-if exit_code > 0:
-    print("ERROR: {} on {}".format(exit_code, html_file))
